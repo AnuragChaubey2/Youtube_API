@@ -1,0 +1,19 @@
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - API_KEY=API_KEY_FILE=/run/secrets/api_key
+      - DB_USER=anurag
+      - DB_PASSWORD=/run/secrets/db_password
+      - DB_NAME=youtube
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=anurag
+      - POSTGRES_PASSWORD=POSTGRES_PASSWORD_FILE=/run/secrets/db_password
+      - POSTGRES_DB=youtube
